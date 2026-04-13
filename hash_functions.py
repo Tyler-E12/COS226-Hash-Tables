@@ -1,9 +1,13 @@
-# the poor hash on purpose for the first commit
-# this is bad on purpose because a bunch of different keys can have the same length
-# which would cause a LOT of collisions
+# this version of the hash function doesn't use key length for indexing like commit 1,
+# it actually uses polynomials (based off of characters) IN the keys instead.
+# this ends up greatly reducing the number of collisions.
+# there's also barely any wasted space, but the build time is slightly longer.
+def poly_hash(key, size):
 
-# key = the key thats being hashed
-# size = the actual size of the hash table itself
-def bad_hash(key, size):
-    # returns the index in the hash table
-    return len(key) % size
+    hash_value = 0
+    prime = 31
+
+    for char in key:
+        hash_value = (hash_value * prime + ord(char)) % size
+
+    return hash_value
