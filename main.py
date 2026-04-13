@@ -7,7 +7,7 @@
 import time
 from data_load import load_movies
 from hash_tables import LinkedListHashTable
-from hash_functions import bad_hash
+from hash_functions import poly_hash
 
 table_size = 2000
 
@@ -39,14 +39,14 @@ def main():
     movies = load_movies("MOCK_DATA.csv")
 
     # hash table 1 where the title is the key
-    title_table = LinkedListHashTable(table_size, bad_hash)
+    title_table = LinkedListHashTable(table_size, poly_hash)
     time_title = build_table(title_table, movies, "title")
-    print_stats("Hash Table 1 (Title Key - Bad Hash)", title_table, time_title)
+    print_stats("Hash Table 1 (Title Key - Poly Hash)", title_table, time_title)
 
     # hash table 2 where the quote is the key
-    quote_table = LinkedListHashTable(table_size, bad_hash)
+    quote_table = LinkedListHashTable(table_size, poly_hash)
     time_quote = build_table(quote_table, movies, "quote")
-    print_stats("Hash Table 2 (Quote Key - Bad Hash)", quote_table, time_quote)
+    print_stats("Hash Table 2 (Quote Key - Poly Hash)", quote_table, time_quote)
 
 # what actually makes the program run
 if __name__ == "__main__":
