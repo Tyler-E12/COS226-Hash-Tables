@@ -1,9 +1,13 @@
-# brought back the bad hash so I can combine it with the linear probing
-# linear probing + the bad hash caused an incredibly high amount of both collisions AND
-# wasted space.
-# the build time ended up around 11 seconds because I had to greatly increase the table
-# size to even finish running the program without issue.
+# I had to make the table size 20,000 from 10,000 before it would fully run the program
+# but once it was able to run, there were far less collisions than previously. It was also
+# much faster even though the size was much bigger.
 
-def bad_hash(key, size):
- 
-    return len(key) % size
+# good hash function using polynomial rolling
+def good_hash(key, size):
+    hash_value = 0
+    prime = 31
+
+    for char in key:
+        hash_value = (hash_value * prime + ord(char)) % size
+
+    return hash_value
