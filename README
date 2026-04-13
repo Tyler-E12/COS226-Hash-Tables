@@ -1,0 +1,75 @@
+FINDINGS:
+I've found as I've done this that there's definitely tradeoffs when choosing how you want to make these hash tables, and that it really comes down to what you want to prioritize. Of course, there's just bad options, like Linear Probing with the poor hash in commit 3,
+but at the end of the day it really comes down to whether you want to prevent wasted space or collisions. As soon in commit 1 and 2, its easier to prevent wasted space when using link lists, but it opens itself up to a lot of collisions. On the flip side, linear probing
+has far less collisions (when done correctly) but far more wasted space. No matter what you end up doing, even if its well optimized, there will always be tradeoffs.
+
+Commit 1 - linked list with bad hash
+As expected the stats for this commit where pretty bad.
+Hash Table 1
+Collisions: 3,307,007
+Wasted space: 1893
+Build Time: 0.007003
+
+Hash Table 2
+Collisions: 5,748,572
+Wasted Space: 1954
+Build Time: 0.006001
+The only real positive is that the build time is relatively fast in comparison to some of the other methods I ended up trying out.
+
+
+Commit 2 - linked list with polynomial hash
+This actually ended up being the method that performed the best out of every single combination when it came to minimizing wasted space without
+trading off too much in regards to collisions.
+Hash Table 1
+Collisions: 59,757
+Wasted space: 7
+Build Time: 0.026006
+
+Hash Table 2
+Collisions: 56,042
+Wasted Space: 0
+Build Time: 0.0040009
+It makes sense that it'd perform better than the first commit, which was the linked list with the bad hash, as the polynomial method is just more
+efficient, since its going off of character and not length of the keys.
+
+
+Commit 3 - Linear Probing (bad hash)
+Hash Table 1
+Collisions: 112,195,045
+Wasted space: 85,000
+Build Time: 11.927852 
+
+Hash Table 2
+Collisions: 112,214,903
+Wasted Space: 85,000
+Build Time: 12.575843
+This combination ended up being the worst by far. Not only did it take forever to finish running compared to the other combinations, but there were far
+more collisions and wasted space than any other commit attempt. I even had to make the table bigger in order to fit everything in.
+
+
+Commit 4 - Linear Probing (good hash)
+2nd best when it comes to minimizing collisions, 2nd only to commit 5, which is an optimized version of this commit.
+Hash Table 1
+Collisions: 41,424
+Wasted space: 5,000
+Build Time: 0.029006
+
+Hash Table 2
+Collisions: 21,875
+Wasted Space: 5,000
+Build Time: 0.041009
+
+
+Commit 5 - Linear Probing (good hash and optimization)
+Barely beats out commit 4 when it comes to collisions in table 1, and actually still has a few more on table 2
+Hash Table 1
+Collisions: 39,124
+Wasted space: 5,000
+Build Time: 0.030007
+
+Hash Table 2
+Collisions: 22,472
+Wasted Space: 5,000
+Build Time: 0.042009
+
+
